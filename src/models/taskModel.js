@@ -21,7 +21,10 @@ const taskModel = new mongoose.Schema({
         type : String,
         required : [true,'Priority is required']
     },
-    comments : [String],
+    comments : [{
+        comment : String,
+        commentTime : Date
+    }],
     createdAt : Date
 })
 
