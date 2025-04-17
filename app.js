@@ -2,6 +2,7 @@ const express = require('express');
 const userRoute = require('./src/routes/userRoutes');
 const projectRoute = require('./src/routes/projectRoute');
 const taskRoute = require('./src/routes/taskRoute');
+const cors = require('cors');
 
 const app = express();
 const allowedOrigins = ['http://localhost:5173',];
