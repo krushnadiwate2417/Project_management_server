@@ -53,7 +53,7 @@ exports.addTask = async (req,res,next)=>{
 
 exports.addComment = async (req,res,next) =>{
     try {
-        const {taskId,comment} = req.body;
+        const {taskId,comment,commentedBy} = req.body;
         const task = await Task.findOne({_id : taskId});
         if(!task){
             return res.status(404).json({
@@ -61,7 +61,7 @@ exports.addComment = async (req,res,next) =>{
                 message : `Task with id ${taskId} is not present`
             })
         }
-        task.comments = [{comment,commentTime : Date.now()},...task.comments];
+        task.comments = [{comment,commentTime : Date.now(),commentedBy},...task.comments];
         const updatedTask = await task.save();
         res.status(200).json({
             status : "success",

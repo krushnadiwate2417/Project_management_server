@@ -23,7 +23,8 @@ const taskModel = new mongoose.Schema({
     },
     comments : [{
         comment : String,
-        commentTime : Date
+        commentTime : Date,
+        commentedBy : String
     }],
     createdAt : Date
 })
