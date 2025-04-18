@@ -5,7 +5,7 @@ exports.addProject = async (req,res,next)=>{
         const project = await Project.create(req.body);
         res.status(201).json({
             status : 'success',
-            project : {project}
+            project
         })
     } catch (error) {
         console.log(error.message)
@@ -22,7 +22,7 @@ exports.getProjects = async (req,res,next)=>{
         const projects = await Project.find();
         res.status(200).json({
             status : 'success',
-            projects : {projects}
+            projects
         })
     } catch (error) {
         console.log(error.message)

@@ -21,6 +21,10 @@ const taskModel = new mongoose.Schema({
         type : String,
         required : [true,'Priority is required']
     },
+    status : {
+        type : String,
+        required : [true,'Status is required']
+    },
     comments : [{
         comment : String,
         commentTime : Date,

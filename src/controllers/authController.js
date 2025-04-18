@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 
 exports.getAllUsers = async (req,res,next)=>{
     try {
-        const newUser = await User.find();
+        const users = await User.find();
         res.status(200).json({
             status : 'success',
-            data : {newUser}
+            users 
         })
     } catch (error) {
         res.status(400).json({
@@ -29,7 +29,7 @@ exports.addUser = async (req,res,next)=>{
         res.status(201).json({
             status : 'success',
             token : jsonToken,
-            data : {newUser}
+            newUser
         })
     } catch (error) {
         console.log(error.message)
@@ -60,7 +60,7 @@ exports.login = async (req,res,next)=>{
         res.status(200).json({
             status : 'success',
             token : jsonToken,
-            data : {user}
+            user
         })
 
 

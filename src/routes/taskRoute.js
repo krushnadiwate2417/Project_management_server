@@ -9,5 +9,6 @@ taskRouter.route('/addTask').post(taskController.addTask);
 taskRouter.route('/showTask/:taskId').get(taskController.getTask);
 
 taskRouter.route('/addComment').patch(taskController.addComment);
+taskRouter.route('/changeStatus').patch(taskController.changeStatus);
 
 module.exports = taskRouter;

@@ -8,7 +8,7 @@ exports.getAllTasks = async (req,res,next)=>{
         const tasks = await Task.find().where('projectId').equals(projectId);
         res.status(200).json({
             status : 'success',
-            tasks : {tasks} 
+            tasks 
         })
     } catch (error) {
         res.status(404).json({
@@ -25,7 +25,7 @@ exports.getTask = async (req,res,next)=>{
         const task = await Task.findOne({_id : taskId});
         res.status(200).json({
             status : 'success',
-            task : {task}
+            task
         })
     } catch (error) {
         res.status(404).json({
@@ -41,7 +41,7 @@ exports.addTask = async (req,res,next)=>{
         const task = await Task.create(req.body);
         res.status(200).json({
             status : 'success',
-            task : {task}
+            task
         })
     } catch (error) {
         res.status(404).json({
@@ -73,9 +73,34 @@ exports.addComment = async (req,res,next) =>{
         const updatedTask = await task.save();
         res.status(200).json({
             status : "success",
-            updatedTask : {updatedTask}
+            updatedTask
         })
 
+    } catch (error) {
+        res.status(404).json({
+            status : 'fail',
+            message : error.message,
+            error
+        })
+    }
+}
+
+exports.changeStatus = async (req,res,next)=>{
+    try {
+        const {taskId,status} = req.body;
+        const task = await Task.findOne({_id : taskId});
+        if(!task){
+            return res.status(404).json({
+                status : 'fail',
+                message : `Task with id ${taskId} is not present`
+            })
+        }
+        task.status = status;
+        const updatedTask = await task.save();
+        res.status(200).json({
+            status : 'success',
+            updatedTask
+        })
     } catch (error) {
         res.status(404).json({
             status : 'fail',
