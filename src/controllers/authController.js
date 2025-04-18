@@ -45,6 +45,14 @@ exports.login = async (req,res,next)=>{
     try {
         const {email,password} = req.body;
         const user = await User.findOne({ email }).select("+password");
+        
+        if(!user){
+            return res.status(404).json({
+                status : 'fail',
+                message : 'User not Present or Wrong Password'
+            })
+        }
+
         const isMatch = await user.comparePassInDb(password, user.password);
 
         if(!user || !isMatch){

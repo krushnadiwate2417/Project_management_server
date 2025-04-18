@@ -28,9 +28,10 @@ userModel.pre("save",async function (next) {
     next();
 })
 
-userModel.methods.comparePassInDb = async function (pswd, pswdDB) {
-    return await bcrypt.compare(pswd, pswdDB);
-  };
+
+userModel.methods.comparePassInDb = async function (pswd,DbPswd){
+    return await bcrypt.compare(pswd,DbPswd);
+}
 
 const User = mongoose.model('users',userModel);
 
