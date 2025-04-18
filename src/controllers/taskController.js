@@ -1,3 +1,4 @@
+const User = require('../models/authModel');
 const Task = require('../models/taskModel');
 
 
@@ -61,7 +62,14 @@ exports.addComment = async (req,res,next) =>{
                 message : `Task with id ${taskId} is not present`
             })
         }
-        task.comments = [{comment,commentTime : Date.now(),commentedBy},...task.comments];
+        const user = await User.findOne({_id : commentedBy});
+        if(!user){
+            return res.status(404).json({
+                status : 'fail',
+                message : `User with id ${commentedBy} is not present`
+            })
+        }
+        task.comments = [{comment,commentTime : Date.now(),commentedBy : user.fullName},...task.comments];
         const updatedTask = await task.save();
         res.status(200).json({
             status : "success",
